@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Sửa Sách</title></head>
+<body>
+  <h1>Sửa Thông Tin Sách</h1>
+  <form th:action="@{/books/edit/{id}(id=${book.id})}" th:object="${book}" method="post">
+    <p>Title: <input th:field="*{title}" required/></p>
+    <p>Author: <input th:field="*{author}" required/></p>
+    <p>Category: <input th:field="*{category}" required/></p>
+    <p>Year: <input th:field="*{year}" type="number" required/></p>
+    <button type="submit">Lưu</button>
+  </form>
+  <a th:href="@{/books}">Quay về</a>
+</body>
+</html>
