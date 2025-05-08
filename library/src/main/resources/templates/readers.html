@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách bạn đọc</title>
+</head>
+
+<body>
+    <h1>Quản lý thư viện</h1>
+
+    <!-- Form tìm kiếm -->
+    <form th:action="@{/readers}" method="get" style="margin-bottom:1em;">
+        <input type="text" name="keyword" th:value="${keyword}"
+            placeholder="Tìm kiếm tên/email/số điện thoại bạn đọc..." />
+        <button type="submit">Lọc</button>
+        <a th:href="@{/readers}">Reset</a>
+    </form>
+
+    <!-- Thêm bạn đọc mới -->
+    <a th:href="@{/readers/add}">Thêm sách mới</a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Hành động</th>
+        </tr>
+        <tr th:each="reader : ${readers}">
+            <td th:text="${reader.id}"></td>
+            <td th:text="${reader.name}"></td>
+            <td th:text="${reader.email}"></td>
+            <td th:text="${reader.phoneNumber}"></td>
+            <td th:text="${reader.address}"></td>
+            <td>
+                <a th:href="@{/books/edit/{id}(id=${reader.id})}">Sửa</a>
+                <a th:href="@{/books/delete/{id}(id=${reader.id})}" onclick="return confirm('Xóa người đọc này?');">Xóa</a>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

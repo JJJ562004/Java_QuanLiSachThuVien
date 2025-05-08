@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Thêm Sách</title></head>
+<head><meta charset="UTF-8"><title>Thêm sách</title></head>
 <body>
-  <h1>Thêm Sách Mới</h1>
+  <h1>Thêm sách mới</h1>
   <form th:action="@{/books/add}" th:object="${book}" method="post">
     <p>Tiêu đề: <input th:field="*{title}" required/></p>
     <p>Tác giả: <input th:field="*{author}" required/></p>
     <p>Thể loại: <input th:field="*{category}" required/></p>
-    <p>Năm sản xuấtxuất: <input th:field="*{year}" type="number" required/></p>
+    <p>Năm sản xuất: <input th:field="*{year}" type="number" required/></p>
     <button type="submit">Lưu</button>
   </form>
   <a th:href="@{/books}">Quay về</a>

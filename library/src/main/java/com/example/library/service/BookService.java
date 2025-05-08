@@ -28,4 +28,15 @@ public class BookService {
     public void deleteBook(Long id) {
         repository.deleteById(id);
     }
+
+    // Tìm sách theo keyword
+    //Trả về tất cả nếu keyword trống, hoặc kết quả lọc.
+    public List<Book> searchBooks(String keyword) {
+        if (keyword == null || keyword.isBlank()) {
+            return repository.findAll();
+        }
+        return repository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCaseOrCategoryContainingIgnoreCase(
+            keyword, keyword, keyword
+        );
+    }
 }

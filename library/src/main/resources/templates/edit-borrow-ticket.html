@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa phiếu mượn</title>
+</head>
+<body>
+<h2>Sửa phiếu mượn</h2>
+
+<form th:action="@{/borrow-tickets/edit/{id}(id=${borrowTicket.id})}" th:object="${borrowTicket}" method="post">
+    <label for="reader">Chọn bạn đọc:</label>
+    <select th:field="*{reader.id}" name="reader.id" required>
+        <option value="" disabled selected>-- Chọn độc giả --</option>
+        <option th:each="reader : ${readers}"
+                th:value="${reader.id}"
+                th:text="${reader.name}">
+        </option>
+    </select>
+    <p>ngày mượn: <input th:field="*{borrowDate}" type="datetime-local" required/></p>
+    <p>ngày trả: <input th:field="*{returnDate}" type="date" required/></p>
+
+    <button type="submit">Lưu</button>
+    <a th:href="@{/borrow-tickets}">Hủy</a>
+</form>
+</body>
+</html>

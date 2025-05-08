@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Sửa bạn đọc</title></head>
+<body>
+  <h1>Sửa thông tin bạn đọc</h1>
+  <form th:action="@{/readers/edit/{id}(id=${reader.id})}" th:object="${reader}" method="post">
+    <p>Tên: <input th:field="*{name}" required/></p>
+    <p>Email: <input th:field="*{email}" required/></p>
+    <p>Số điện thoại: <input th:field="*{phoneNumber}" required/></p>
+    <p>Địa chỉ: <input th:field="*{address}" type="number" required/></p>
+    <button type="submit">Lưu</button>
+  </form>
+  <a th:href="@{/books}">Quay về</a>
+</body>
+</html>

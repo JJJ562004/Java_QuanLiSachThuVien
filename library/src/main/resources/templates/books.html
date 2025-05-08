@@ -1,22 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Danh Sách Sách</title></head>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Danh Sách Sách</title>
+</head>
+
 <body>
   <h1>Quản Lý Thư Viện</h1>
+
+  <!-- Form tìm kiếm -->
+  <form th:action="@{/books}" method="get" style="margin-bottom:1em;">
+    <input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm tên sách/tác giả/thể loại..." />
+    <button type="submit">Lọc</button>
+    <a th:href="@{/books}">Reset</a>
+  </form>
+
+  <!-- Thêm sách mới -->
   <a th:href="@{/books/add}">Thêm sách mới</a>
   <table border="1">
-    <tr><th>Title</th><th>Author</th><th>Category</th><th>Year</th><th>Actions</th></tr>
+    <tr>
+      <th>ID</th>
+      <th>Tiêu đề</th>
+      <th>Tác giả</th>
+      <th>Thể loại</th>
+      <th>Năm sản xuất</th>
+      <th>Hành động</th>
+    </tr>
     <tr th:each="book : ${books}">
+      <td th:text="${book.id}"></td>
       <td th:text="${book.title}"></td>
       <td th:text="${book.author}"></td>
       <td th:text="${book.category}"></td>
       <td th:text="${book.year}"></td>
       <td>
         <a th:href="@{/books/edit/{id}(id=${book.id})}">Sửa</a>
-        <a th:href="@{/books/delete/{id}(id=${book.id})}"
-           onclick="return confirm('Xóa sách này?');">Xóa</a>
+        <a th:href="@{/books/delete/{id}(id=${book.id})}" onclick="return confirm('Xóa sách này?');">Xóa</a>
       </td>
     </tr>
   </table>
 </body>
+
 </html>

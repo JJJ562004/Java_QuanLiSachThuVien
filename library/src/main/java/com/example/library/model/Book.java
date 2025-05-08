@@ -1,24 +1,24 @@
 package com.example.library.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private String id;
     private String title;
     private String author;
     private String category;
     private int year;
 
-    public Book() {}
+    @ManyToOne
+    @JoinColumn(name = "borrow_ticket_detail_id")
+    private BorrowTicketDetail borrowTicketDetail;
 
-    public Book(String author, String category, Long id, String title, int year) {
+    public Book() {
+    }
+
+    public Book(String author, String category, String id, String title, int year) {
         this.author = author;
         this.category = category;
         this.id = id;
@@ -26,11 +26,11 @@ public class Book {
         this.year = year;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,5 +66,12 @@ public class Book {
         this.year = year;
     }
 
+    public BorrowTicketDetail getBorrowTicketDetail() {
+        return borrowTicketDetail;
+    }
 
+    public void setBorrowTicketDetail(BorrowTicketDetail borrowTicketDetail) {
+        this.borrowTicketDetail = borrowTicketDetail;
+
+    }
 }

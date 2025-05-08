@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Thư viện</title>
+</head>
+<body>
+  <h1>Quản lí sách thư viện</h1>
+  <nav>
+    <a th:href="@{/books}">Sách</a> |
+    <a th:href="@{/readers}">Bạn đọc</a> |
+    <a th:href="@{/borrow-tickets}">Phiếu mượn</a>
+  </nav>
+  <hr>
+  <div>
+    <p>Chọn một mục ở trên để bắt đầu quản lý.</p>
+  </div>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.example.library.controller;
 
 import com.example.library.model.Book;
 import com.example.library.service.BookService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +15,16 @@ public class BookController {
     @Autowired
     private BookService service;
 
-    // 1. Danh sách sách
+    // 1. Danh sách hoặc tìm kiếm sách
     @GetMapping
-    public String listBooks(Model model) {
-        model.addAttribute("books", service.getAllBooks());
+    public String listBooks(@RequestParam(name = "keyword", required = false) String keyword,
+                            Model model) {
+        List<Book> books = (keyword == null || keyword.isBlank()) ?
+            service.getAllBooks() :
+            service.searchBooks(keyword);
+
+        model.addAttribute("books", books);
+        model.addAttribute("keyword", keyword);
         return "books";
     }
 
@@ -44,7 +51,7 @@ public class BookController {
 
     // 5. Cập nhật sách
     @PostMapping("/edit/{id}")
-    public String editBook(@PathVariable Long id, @ModelAttribute Book book) {
+    public String editBook(@PathVariable String id, @ModelAttribute Book book) {
         book.setId(id);
         service.saveBook(book);
         return "redirect:/books";

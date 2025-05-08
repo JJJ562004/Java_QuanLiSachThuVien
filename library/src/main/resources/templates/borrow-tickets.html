@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Phiếu Mượn</title>
+</head>
+<body>
+<h2>Danh sách Phiếu Mượn</h2>
+
+<form th:action="@{/borrow-tickets}" method="get">
+    <input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm tên độc giả...">
+    <button type="submit">Tìm kiếm</button>
+    <a th:href="@{/borrow-tickets/add}">+ Thêm Phiếu Mượn</a>
+</form>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Bạn đọc</th>
+        <th>Ngày mượn</th>
+        <th>Ngày trả</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ticket : ${borrowTickets}">
+        <td th:text="${ticket.id}"></td>
+        <td th:text="${ticket.reader.name}"></td>
+        <td th:text="${ticket.borrowDate}"></td>
+        <td th:text="${ticket.returnDate}"></td>
+        <td>
+            <a th:href="@{'/borrow-tickets/edit/' + ${ticket.id}}">Sửa</a> |
+            <a th:href="@{'/borrow-tickets/delete/' + ${ticket.id}}"
+               onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">Xóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
