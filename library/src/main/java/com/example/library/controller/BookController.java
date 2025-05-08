@@ -44,7 +44,7 @@ public class BookController {
 
     // 4. Form sửa sách
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(@PathVariable String id, Model model) {
         model.addAttribute("book", service.getBookById(id));
         return "edit-book";
     }
@@ -59,7 +59,7 @@ public class BookController {
 
     // 6. Xóa sách
     @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable Long id) {
+    public String deleteBook(@PathVariable String id) {
         service.deleteBook(id);
         return "redirect:/books";
     }

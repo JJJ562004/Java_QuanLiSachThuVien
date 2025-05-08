@@ -8,8 +8,7 @@ import java.util.List;
 @Entity
 public class BorrowTicket {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private LocalDate borrowDate;
     private LocalDate returnDate;
@@ -24,18 +23,18 @@ public class BorrowTicket {
     public BorrowTicket() {
     }
 
-    public BorrowTicket(Long id, LocalDate borrowDate, LocalDate returnDate, Reader reader) {
+    public BorrowTicket(String id, LocalDate borrowDate, LocalDate returnDate, Reader reader) {
         this.id = id;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
         this.reader = reader;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -44,14 +44,14 @@ public class ReaderController {
 
     // 4. Form sửa bạn đọc
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(@PathVariable String id, Model model) {
         model.addAttribute("reader", service.getReaderById(id));
         return "edit-reader";
     }
 
     // 5. Cập nhật bạn đọc
     @PostMapping("/edit/{id}")
-    public String editReader(@PathVariable Long id, @ModelAttribute Reader reader) {
+    public String editReader(@PathVariable String id, @ModelAttribute Reader reader) {
         reader.setId(id);
         service.saveReader(reader);
         return "redirect:/readers";
@@ -59,7 +59,7 @@ public class ReaderController {
 
     // 6. Xóa bạn đọc
     @GetMapping("/delete/{id}")
-    public String deleteReader(@PathVariable Long id) {
+    public String deleteReader(@PathVariable String id) {
         service.deleteReader(id);
         return "redirect:/readers";
     }

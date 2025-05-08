@@ -1,6 +1,7 @@
 package com.example.library.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class BorrowTicketService {
         return repository.findAll();
     }
 
-    public BorrowTicket getBorrowTicketById(Long id) {
+    public BorrowTicket getBorrowTicketById(String id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -24,7 +25,7 @@ public class BorrowTicketService {
         return repository.save(borrowTicket);
     }
 
-    public void deleteBorrowTicket(Long id) {
+    public void deleteBorrowTicket(String id) {
         repository.deleteById(id);
     }
 

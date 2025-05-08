@@ -17,7 +17,7 @@ public class BookService {
         return repository.findAll();
     }
 
-    public Book getBookById(Long id) {
+    public Book getBookById(String id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -25,7 +25,7 @@ public class BookService {
         return repository.save(book);
     }
 
-    public void deleteBook(Long id) {
+    public void deleteBook(String id) {
         repository.deleteById(id);
     }
 

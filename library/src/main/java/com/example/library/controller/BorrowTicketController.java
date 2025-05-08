@@ -1,14 +1,20 @@
 package com.example.library.controller;
 
-import com.example.library.model.BorrowTicket;
-import com.example.library.model.Reader;
-import com.example.library.service.BorrowTicketService;
-import com.example.library.service.ReaderService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.library.model.BorrowTicket;
+import com.example.library.service.BorrowTicketService;
+import com.example.library.service.ReaderService;
 
 @Controller
 @RequestMapping("/borrow-tickets")
@@ -51,7 +57,7 @@ public class BorrowTicketController {
     }
     // 4. Form sửa phiếu mượn
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(@PathVariable String id, Model model) {
         BorrowTicket ticket = borrowTicketService.getBorrowTicketById(id);
         if (ticket == null) {
             return "redirect:/borrow-tickets";
@@ -63,7 +69,7 @@ public class BorrowTicketController {
 
     // 5. Cập nhật phiếu mượn
     @PostMapping("/edit/{id}")
-    public String updateBorrowTicket(@PathVariable Long id, @ModelAttribute BorrowTicket borrowTicket) {
+    public String updateBorrowTicket(@PathVariable String id, @ModelAttribute BorrowTicket borrowTicket) {
         borrowTicket.setId(id);
         borrowTicketService.saveBorrowTicket(borrowTicket);
         return "redirect:/borrow-tickets";
@@ -71,7 +77,7 @@ public class BorrowTicketController {
 
     // 6. Xóa phiếu mượn
     @GetMapping("/delete/{id}")
-    public String deleteBorrowTicket(@PathVariable Long id) {
+    public String deleteBorrowTicket(@PathVariable String id) {
         borrowTicketService.deleteBorrowTicket(id);
         return "redirect:/borrow-tickets";
     }

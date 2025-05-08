@@ -17,7 +17,7 @@ public class ReaderService {
         return repository.findAll();
     }
 
-    public Reader getReaderById(Long id) {
+    public Reader getReaderById(String id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -25,7 +25,7 @@ public class ReaderService {
         return repository.save(reader);
     }
 
-    public void deleteReader(Long id) {
+    public void deleteReader(String id) {
         repository.deleteById(id);
     }
 

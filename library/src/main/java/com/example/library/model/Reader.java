@@ -1,13 +1,16 @@
 package com.example.library.model;
 
 import java.util.List;
-import jakarta.persistence.*;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Reader {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
     private String email; 
     private String phoneNumber;
@@ -19,7 +22,7 @@ public class Reader {
     public Reader() {
     }
 
-    public Reader(Long id, String name, String email, String phoneNumber, String address) {
+    public Reader(String id, String name, String email, String phoneNumber, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -27,11 +30,11 @@ public class Reader {
         this.address = address;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

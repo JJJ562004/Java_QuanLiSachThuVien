@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.library.model.Reader;
 
 @Repository
-public interface ReaderRepository extends JpaRepository<Reader, Long> {
+public interface ReaderRepository extends JpaRepository<Reader, String> {
     // Tìm khi tên các biến sau chứa từ khóa (ignore case)
     List<Reader> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPhoneNumberContainingIgnoreCase(
         String name, String email, String phoneNumber);
