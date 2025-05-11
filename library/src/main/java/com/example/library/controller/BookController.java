@@ -2,6 +2,10 @@ package com.example.library.controller;
 
 import com.example.library.model.Book;
 import com.example.library.service.BookService;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,4 +67,15 @@ public class BookController {
         service.deleteBook(id);
         return "redirect:/books";
     }
+    @GetMapping("/readers/export/pdf")
+public void exportToPDF(HttpServletResponse response) throws IOException, DocumentException {
+    response.setContentType("application/pdf");
+    response.setHeader("Content-Disposition", "attachment; filename=readers.pdf");
+
+    List<Reader> readers = readerService.getAllReaders();
+
+    ReaderPdfExporter exporter = new ReaderPdfExporter(readers);
+    exporter.export(response);
+}
+
 }
