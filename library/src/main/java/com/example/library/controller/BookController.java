@@ -1,16 +1,19 @@
 package com.example.library.controller;
 
-import com.example.library.model.Book;
-import com.example.library.service.BookService;
-
-import jakarta.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.library.model.Book;
+import com.example.library.service.BookService;
 
 @Controller
 @RequestMapping("/books")
@@ -67,15 +70,4 @@ public class BookController {
         service.deleteBook(id);
         return "redirect:/books";
     }
-    @GetMapping("/readers/export/pdf")
-public void exportToPDF(HttpServletResponse response) throws IOException, DocumentException {
-    response.setContentType("application/pdf");
-    response.setHeader("Content-Disposition", "attachment; filename=readers.pdf");
-
-    List<Reader> readers = readerService.getAllReaders();
-
-    ReaderPdfExporter exporter = new ReaderPdfExporter(readers);
-    exporter.export(response);
-}
-
 }
