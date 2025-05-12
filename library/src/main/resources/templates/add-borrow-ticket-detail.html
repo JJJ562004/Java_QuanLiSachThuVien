@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Thêm chi tiết phiếu mượn</title></head>
+<body>
+  <h1>Thêm chi tiết phiếu mượn</h1>
+  <form th:action="@{/borrow-ticket-details/add}" th:object="${borrowTicketDetail}" method="post">
+    <p>ID: <input th:field="*{id}" type="text" required/></p>
+    <label>Chọn phiếu mượn:</label>
+    <select name="ticketId">
+        <option th:each="t : ${tickets}" th:value="${t.id}" th:text="${t.id}"
+                th:selected="${detail.borrowTicket?.id} == ${t.id}"></option>
+    </select>
+
+    <label>Chọn sách:</label>
+    <select name="bookIds" multiple>
+        <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}"
+                th:selected="${#lists.contains(detail.books, b)}"></option>
+    </select>
+    <button type="submit">Lưu</button>
+  </form>
+  <a th:href="@{/books}">Quay về</a>
+</body>
+</html>

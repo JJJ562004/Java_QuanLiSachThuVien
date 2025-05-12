@@ -10,7 +10,7 @@
 <form th:action="@{/borrow-tickets}" method="get">
     <input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm tên độc giả...">
     <button type="submit">Tìm kiếm</button>
-    <a th:href="@{/borrow-tickets/add}">+ Thêm Phiếu Mượn</a>
+    <a th:href="@{/borrow-tickets/add}">+ Thêm phiếu mượn</a>
 </form>
 
 <table border="1">
@@ -37,5 +37,6 @@
     </tr>
     </tbody>
 </table>
+<a th:href="@{/borrow-tickets/export/pdf}" target="_blank">Xuất PDF Phiếu Mượn</a>
 </body>
 </html>

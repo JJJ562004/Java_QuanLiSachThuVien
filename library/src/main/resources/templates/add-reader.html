@@ -4,10 +4,11 @@
 <body>
   <h1>Sửa thông tin bạn đọc</h1>
   <form th:action="@{/readers/add}" th:object="${reader}" method="post">
+    <p>ID: <input th:field="*{id}" type="text" required/></p>
     <p>Tên: <input th:field="*{name}" required/></p>
-    <p>Email: <input th:field="*{email}" required/></p>
-    <p>Số điện thoại: <input th:field="*{phoneNumber}" required/></p>
-    <p>Địa chỉ: <input th:field="*{address}" type="number" required/></p>
+    <p>Email: <input th:field="*{email}" type="email" required/></p>
+    <p>Số điện thoại: <input th:field="*{phoneNumber}" type="tel" required/></p>
+    <p>Địa chỉ: <input th:field="*{address}" type="text" required/></p>
     <button type="submit">Lưu</button>
   </form>
   <a th:href="@{/books}">Quay về</a>

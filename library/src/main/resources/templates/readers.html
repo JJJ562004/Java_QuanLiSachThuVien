@@ -18,7 +18,7 @@
     </form>
 
     <!-- Thêm bạn đọc mới -->
-    <a th:href="@{/readers/add}">Thêm sách mới</a>
+    <a th:href="@{/readers/add}">Thêm bạn dọc mới</a>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -35,8 +35,8 @@
             <td th:text="${reader.phoneNumber}"></td>
             <td th:text="${reader.address}"></td>
             <td>
-                <a th:href="@{/books/edit/{id}(id=${reader.id})}">Sửa</a>
-                <a th:href="@{/books/delete/{id}(id=${reader.id})}" onclick="return confirm('Xóa người đọc này?');">Xóa</a>
+                <a th:href="@{/readers/edit/{id}(id=${reader.id})}">Sửa</a>
+                <a th:href="@{/readers/delete/{id}(id=${reader.id})}" onclick="return confirm('Xóa người đọc này?');">Xóa</a>
             </td>
         </tr>
     </table>

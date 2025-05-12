@@ -1,5 +1,6 @@
 package com.example.library.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,9 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.library.export.BorrowTicketPdfExporter;
 import com.example.library.model.BorrowTicket;
 import com.example.library.service.BorrowTicketService;
 import com.example.library.service.ReaderService;
+import com.itextpdf.text.DocumentException;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/borrow-tickets")
@@ -32,8 +37,8 @@ public class BorrowTicketController {
     @GetMapping
     public String listBorrowTickets(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         List<BorrowTicket> tickets = (keyword == null || keyword.isBlank())
-            ? borrowTicketService.getAllBorrowTickets()
-            : borrowTicketService.searchBorrowTickets(keyword);
+                ? borrowTicketService.getAllBorrowTickets()
+                : borrowTicketService.searchBorrowTickets(keyword);
 
         model.addAttribute("borrowTickets", tickets);
         model.addAttribute("keyword", keyword);
@@ -51,10 +56,10 @@ public class BorrowTicketController {
     // 3. Lưu phiếu mượn mới
     @PostMapping("/add")
     public String saveBorrowTicket(@ModelAttribute BorrowTicket borrowTicket) {
-        borrowTicket.setBorrowDate(LocalDate.now());
         borrowTicketService.saveBorrowTicket(borrowTicket);
         return "redirect:/borrow-tickets";
     }
+
     // 4. Form sửa phiếu mượn
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable String id, Model model) {
@@ -67,11 +72,21 @@ public class BorrowTicketController {
         return "edit-borrow-ticket";
     }
 
-    // 5. Cập nhật phiếu mượn
+    // 5. Cập nhật Phiếu Mượn
     @PostMapping("/edit/{id}")
-    public String updateBorrowTicket(@PathVariable String id, @ModelAttribute BorrowTicket borrowTicket) {
-        borrowTicket.setId(id);
-        borrowTicketService.saveBorrowTicket(borrowTicket);
+    public String editBorrowTicket(@PathVariable String id,
+            @ModelAttribute BorrowTicket borrowTicket) {
+        BorrowTicket existing_borrow_ticket = borrowTicketService.getBorrowTicketById(id);
+        if (existing_borrow_ticket == null) {
+            return "redirect:/borrow-tickets";
+        }
+        // Cập nhật các trường
+        existing_borrow_ticket.setBorrowDate(borrowTicket.getBorrowDate());
+        existing_borrow_ticket.setReturnDate(borrowTicket.getReturnDate());
+        // Nếu bạn chỉ cho phép đổi Reader qua dropdown:
+        existing_borrow_ticket.setReader(borrowTicket.getReader());
+
+        borrowTicketService.saveBorrowTicket(existing_borrow_ticket);
         return "redirect:/borrow-tickets";
     }
 
@@ -81,4 +96,15 @@ public class BorrowTicketController {
         borrowTicketService.deleteBorrowTicket(id);
         return "redirect:/borrow-tickets";
     }
+
+    @GetMapping("/export/pdf")
+    public void exportBorrowTicketsToPdf(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=borrow_tickets.pdf");
+
+        List<BorrowTicket> tickets = borrowTicketService.getAllBorrowTickets();
+        BorrowTicketPdfExporter exporter = new BorrowTicketPdfExporter(tickets);
+        exporter.export(response);
+    }
+
 }

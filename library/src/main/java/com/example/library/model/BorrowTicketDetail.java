@@ -22,6 +22,15 @@ public class BorrowTicketDetail {
     @OneToMany(mappedBy = "borrowTicketDetail", cascade = CascadeType.ALL)
     private List<Book> books;
 
+    public BorrowTicketDetail() {
+    }
+
+    public BorrowTicketDetail(String id, BorrowTicket borrowTicket, List<Book> books) {
+        this.id = id;
+        this.borrowTicket = borrowTicket;
+        this.books = books;
+    }
+
     public String getId() {
         return id;
     }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.library.export.ReaderPdfExporter;
 import com.example.library.model.Reader;
 import com.example.library.service.ReaderService;
 import com.itextpdf.text.DocumentException;
@@ -29,10 +30,9 @@ public class ReaderController {
     // 1. Danh sách hoặc tìm kiếm bạn đọc
     @GetMapping
     public String listReaders(@RequestParam(name = "keyword", required = false) String keyword,
-                            Model model) {
-        List<Reader> readers = (keyword == null || keyword.isBlank()) ?
-            service.getAllReaders() :
-            service.searchReaders(keyword);
+            Model model) {
+        List<Reader> readers = (keyword == null || keyword.isBlank()) ? service.getAllReaders()
+                : service.searchReaders(keyword);
 
         model.addAttribute("readers", readers);
         model.addAttribute("keyword", keyword);
@@ -62,9 +62,24 @@ public class ReaderController {
 
     // 5. Cập nhật bạn đọc
     @PostMapping("/edit/{id}")
-    public String editReader(@PathVariable String id, @ModelAttribute Reader reader) {
-        reader.setId(id);
-        service.saveReader(reader);
+    public String editReader(@PathVariable String id,
+            @ModelAttribute Reader reader) {
+        // 1. Lấy Reader gốc (có kèm borrowTickets)
+        Reader existing_reader = service.getReaderById(id);
+        if (existing_reader == null) {
+            // Nếu không tìm thấy, quay về danh sách
+            return "redirect:/readers";
+        }
+
+        // 2. Cập nhật chỉ những field cho phép sửa
+        existing_reader.setName(reader.getName());
+        existing_reader.setEmail(reader.getEmail());
+        existing_reader.setAddress(reader.getAddress());
+        existing_reader.setPhoneNumber(reader.getPhoneNumber());
+        // (không gọi existing.setBorrowTickets để giữ nguyên collection)
+
+        // 3. Lưu lại
+        service.saveReader(existing_reader);
         return "redirect:/readers";
     }
 
@@ -74,15 +89,16 @@ public class ReaderController {
         service.deleteReader(id);
         return "redirect:/readers";
     }
-    @GetMapping("/readers/export/pdf")
-public void exportToPDF(HttpServletResponse response) throws IOException, DocumentException {
-    response.setContentType("application/pdf");
-    response.setHeader("Content-Disposition", "attachment; filename=readers.pdf");
 
-    List<Reader> readers = service.getAllReaders();
+    @GetMapping("/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws IOException, DocumentException {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=readers.pdf");
 
-    ReaderPdfExporter exporter = new ReaderPdfExporter(readers);
-    exporter.export(response);
-}
+        List<Reader> readers = service.getAllReaders();
+
+        ReaderPdfExporter exporter = new ReaderPdfExporter(readers);
+        exporter.export(response);
+    }
 
 }

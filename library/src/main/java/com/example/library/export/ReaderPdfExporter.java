@@ -1,4 +1,4 @@
-package com.example.library.controller;
+package com.example.library.export;
 
 import java.io.IOException;
 import java.util.List;
@@ -61,6 +61,9 @@ public class ReaderPdfExporter {
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
         font.setColor(BaseColor.BLACK);
 
+        cell.setPhrase(new Phrase("ID", font));
+        table.addCell(cell);
+
         cell.setPhrase(new Phrase("Tên", font));
         table.addCell(cell);
 
@@ -76,6 +79,7 @@ public class ReaderPdfExporter {
 
     private void writeTableData(PdfPTable table) {
         for (Reader reader : readerList) {
+            table.addCell(reader.getId());
             table.addCell(reader.getName());
             table.addCell(reader.getEmail());
             table.addCell(reader.getPhoneNumber());

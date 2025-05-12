@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách chi tiết phiếu mượn</title>
+</head>
+<body>
+<h2>Danh sách chi tiết phiếu mượn</h2>
+
+<form th:action="@{/borrow-ticket-details}" method="get">
+    <input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm ở đây...">
+    <button type="submit">Tìm kiếm</button>
+    <a th:href="@{/borrow-tickets/add}">+ Thêm mới</a>
+</form>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>ID Phiếu mượn</th>
+        <th>Sách mượn</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="detail : ${borrowTicketDetails}">
+        <td th:text="${detail.id}"></td>
+        <td th:text="${detail.reader.name}"></td>
+        <td th:text="${detail.borrowDate}"></td>
+        <td th:text="${detail.returnDate}"></td>
+        <td>
+            <a th:href="@{'/borrow-tickets/edit/' + ${ticket.id}}">Sửa</a> |
+            <a th:href="@{'/borrow-tickets/delete/' + ${ticket.id}}"
+               onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">Xóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/borrow-ticket-details/export/pdf}" target="_blank">Xuất PDF Chi tiết Phiếu Mượn</a>
+</body>
+</html>

@@ -4,6 +4,7 @@
 <body>
   <h1>Thêm sách mới</h1>
   <form th:action="@{/books/add}" th:object="${book}" method="post">
+    <p>ID: <input th:field="*{id}" type="text" required/></p>
     <p>Tiêu đề: <input th:field="*{title}" required/></p>
     <p>Tác giả: <input th:field="*{author}" required/></p>
     <p>Thể loại: <input th:field="*{category}" required/></p>

@@ -2,25 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Thêm phiếu mượn</title>
+    <title>Thêm Phiếu Mượn</title>
 </head>
 <body>
-<h2>Thêm phiếu mượn mới</h2>
+<h2>Thêm Phiếu Mượn Mới</h2>
 
 <form th:action="@{/borrow-tickets/add}" th:object="${borrowTicket}" method="post">
-    <label for="reader">Chọn bạn đọc:</label>
-    <select th:field="*{reader.id}" name="reader.id" required>
-        <option value="" disabled selected>-- Chọn độc giả --</option>
-        <option th:each="reader : ${readers}"
-                th:value="${reader.id}"
-                th:text="${reader.name}">
-        </option>
-    </select>
-    <p>ngày mượn: <input th:field="*{borrowDate}" type="date" required/></p>
-    <p>ngày trả: <input th:field="*{returnDate}" type="date" required/></p>
+    <p>ID: <input th:field="*{id}" type="text" required/></p>
+    <p>
+        <label for="reader">Bạn đọc:</label>
+        <select th:field="*{reader.id}" id="reader" required>
+            <option value="" disabled selected>-- Chọn bạn đọc --</option>
+            <option th:each="r : ${readers}"
+                    th:value="${r.id}"
+                    th:text="${r.name}">
+            </option>
+        </select>
+    </p>
 
-    <button type="submit">Lưu</button>
-    <a th:href="@{/borrow-tickets}">Hủy</a>
+    <p>
+        <label>Ngày mượn:</label>
+        <input type="date" th:value="${#temporals.format(T(java.time.LocalDate).now(), 'yyyy-MM-dd')}" readonly />
+    </p>
+
+    <p>
+        <label for="returnDate">Ngày trả dự kiến:</label>
+        <input th:field="*{returnDate}" id="returnDate" type="date" required />
+    </p>
+
+    <p>
+        <button type="submit">Lưu Phiếu Mượn</button>
+        <a th:href="@{/borrow-tickets}">Hủy</a>
+    </p>
 </form>
 </body>
 </html>
