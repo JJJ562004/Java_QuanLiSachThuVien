@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Thêm chi tiết phiếu mượn</title></head>
+<head>
+    <title>Thêm CTPM</title>
+</head>
 <body>
-  <h1>Thêm chi tiết phiếu mượn</h1>
-  <form th:action="@{/borrow-ticket-details/add}" th:object="${borrowTicketDetail}" method="post">
-    <p>ID: <input th:field="*{id}" type="text" required/></p>
-    <label>Chọn phiếu mượn:</label>
-    <select name="ticketId">
-        <option th:each="t : ${tickets}" th:value="${t.id}" th:text="${t.id}"
-                th:selected="${detail.borrowTicket?.id} == ${t.id}"></option>
-    </select>
+    <h2>Thêm chi tiết phiếu mượn mới</h2>
+    <form th:action="@{/borrow-ticket-details/save}" th:object="${detail}" method="post">
+        <label>ID:</label>
+        <input type="text" th:field="*{id}" required/><br/>
 
-    <label>Chọn sách:</label>
-    <select name="bookIds" multiple>
-        <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}"
-                th:selected="${#lists.contains(detail.books, b)}"></option>
-    </select>
-    <button type="submit">Lưu</button>
-  </form>
-  <a th:href="@{/books}">Quay về</a>
+        <label for="borrowTicket">Phiếu mượn:</label>
+        <select th:field="*{borrowTicket.id}" id="borrowTicket" required>
+            <option value="" disabled selected>-- Chọn ID phiếu mượn --</option> 
+            <option th:each="ticket : ${borrowTickets}" 
+            th:value="${ticket.id}" 
+            th:text="${ticket.id}"></option>
+        </select><br/>
+
+        <label for="book">Sách mượn:</label>
+        <select th:field="*{book.id}" id="book" required>
+            <option value="" disabled selected>-- Chọn sách mượn --</option> 
+            <option th:each="book : ${books}" 
+            th:value="${book.id}" 
+            th:text="${book.title}"></option>
+        </select><br/>
+
+        <button type="submit">Lưu</button>
+        <a th:href="@{/borrow-ticket-details}">Hủy</a>
+    </form>
 </body>
 </html>

@@ -1,12 +1,23 @@
 package com.example.library.export;
 
-import com.example.library.model.Book;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
-import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.util.List;
+
+import com.example.library.model.Book;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 public class BookPdfExporter {
     private List<Book> bookList;
@@ -22,7 +33,7 @@ public class BookPdfExporter {
         document.open();
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        font.setSize(18);
+        font.setSize(15);
         font.setColor(BaseColor.BLUE);
 
         Paragraph title = new Paragraph("Danh sách Sách", font);
@@ -31,7 +42,7 @@ public class BookPdfExporter {
 
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
-        table.setSpacingBefore(10);
+        table.setSpacingBefore(5);
 
         writeTableHeader(table);
         writeTableData(table);
@@ -43,24 +54,25 @@ public class BookPdfExporter {
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
         cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        cell.setPadding(5);
+        cell.setPadding(2);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
         font.setColor(BaseColor.BLACK);
+        font.setSize(10);
 
         cell.setPhrase(new Phrase("ID", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Tiêu đề", font));
+        cell.setPhrase(new Phrase("Tieu de", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Tác giả", font));
+        cell.setPhrase(new Phrase("Tac gia", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Thể loại", font));
+        cell.setPhrase(new Phrase("The loai", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Năm", font));
+        cell.setPhrase(new Phrase("Nam", font));
         table.addCell(cell);
     }
 

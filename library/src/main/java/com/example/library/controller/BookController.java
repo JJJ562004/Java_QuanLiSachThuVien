@@ -68,12 +68,11 @@ public class BookController {
         if (existing_book == null) {
             return "redirect:/books";
         }
-        // Chỉ cập nhật những trường cho phép
+        // Cập nhật những trường cho phép
         existing_book.setTitle(book.getTitle());
         existing_book.setAuthor(book.getAuthor());
         existing_book.setCategory(book.getCategory());
         existing_book.setYear(book.getYear());
-        // Không gán lại borrowTicketDetail nếu bạn không muốn thay đổi quan hệ ở đây
 
         service.saveBook(existing_book);
         return "redirect:/books";

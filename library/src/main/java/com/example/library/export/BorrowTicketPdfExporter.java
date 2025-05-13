@@ -1,12 +1,24 @@
 package com.example.library.export;
 
-import com.example.library.model.BorrowTicket;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
-import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.util.List;
+
+import com.example.library.model.BorrowTicket;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 public class BorrowTicketPdfExporter {
     private List<BorrowTicket> ticketList;
@@ -21,8 +33,8 @@ public class BorrowTicketPdfExporter {
         document.open();
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        font.setSize(18);
-        Paragraph title = new Paragraph("Danh sách Phiếu Mượn", font);
+        font.setSize(15);
+        Paragraph title = new Paragraph("Danh sach phieu muon", font);
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
         document.add(Chunk.NEWLINE);
@@ -40,10 +52,11 @@ public class BorrowTicketPdfExporter {
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
         cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        cell.setPadding(5);
+        cell.setPadding(2);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
         font.setColor(BaseColor.BLACK);
+        font.setSize(10);
 
         cell.setPhrase(new Phrase("ID", font));
         table.addCell(cell);

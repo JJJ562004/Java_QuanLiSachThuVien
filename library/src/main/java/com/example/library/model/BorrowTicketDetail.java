@@ -1,13 +1,9 @@
 package com.example.library.model;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class BorrowTicketDetail {
@@ -19,16 +15,17 @@ public class BorrowTicketDetail {
     @JoinColumn(name = "borrow_ticket_id", nullable = false)
     private BorrowTicket borrowTicket;
 
-    @OneToMany(mappedBy = "borrowTicketDetail", cascade = CascadeType.ALL)
-    private List<Book> books;
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
     public BorrowTicketDetail() {
     }
 
-    public BorrowTicketDetail(String id, BorrowTicket borrowTicket, List<Book> books) {
+    public BorrowTicketDetail(String id, BorrowTicket borrowTicket, Book book) {
         this.id = id;
         this.borrowTicket = borrowTicket;
-        this.books = books;
+        this.book = book;
     }
 
     public String getId() {
@@ -47,13 +44,11 @@ public class BorrowTicketDetail {
         this.borrowTicket = borrowTicket;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setBook(Book book) {
+        this.book = book;
     }
-
-    
 }

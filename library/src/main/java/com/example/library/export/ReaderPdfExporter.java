@@ -34,17 +34,17 @@ public class ReaderPdfExporter {
         document.open();
 
         Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        fontTitle.setSize(18);
-        Paragraph title = new Paragraph("Danh sách bạn đọc", fontTitle);
+        fontTitle.setSize(15);
+        Paragraph title = new Paragraph("Danh sach ban doc", fontTitle);
         title.setAlignment(Element.ALIGN_CENTER);
 
         document.add(title);
-        document.add(new Paragraph(" ")); // line break
+        document.add(new Paragraph(" "));
 
         PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(100f);
         table.setWidths(new float[]{2.5f, 3.5f, 3.5f, 3.5f});
-        table.setSpacingBefore(10);
+        table.setSpacingBefore(3);
 
         writeTableHeader(table);
         writeTableData(table);
@@ -55,25 +55,26 @@ public class ReaderPdfExporter {
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        cell.setPadding(5);
+        cell.setBackgroundColor(BaseColor.CYAN);
+        cell.setPadding(2);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
         font.setColor(BaseColor.BLACK);
+        font.setSize(10);
 
         cell.setPhrase(new Phrase("ID", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Tên", font));
+        cell.setPhrase(new Phrase("Ten", font));
         table.addCell(cell);
 
         cell.setPhrase(new Phrase("Email", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("SĐT", font));
+        cell.setPhrase(new Phrase("SDT", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Địa chỉ", font));
+        cell.setPhrase(new Phrase("Dia chi", font));
         table.addCell(cell);
     }
 

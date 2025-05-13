@@ -1,7 +1,6 @@
 package com.example.library.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -83,7 +82,6 @@ public class BorrowTicketController {
         // Cập nhật các trường
         existing_borrow_ticket.setBorrowDate(borrowTicket.getBorrowDate());
         existing_borrow_ticket.setReturnDate(borrowTicket.getReturnDate());
-        // Nếu bạn chỉ cho phép đổi Reader qua dropdown:
         existing_borrow_ticket.setReader(borrowTicket.getReader());
 
         borrowTicketService.saveBorrowTicket(existing_borrow_ticket);

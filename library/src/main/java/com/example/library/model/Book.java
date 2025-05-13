@@ -1,6 +1,7 @@
 package com.example.library.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Book {
@@ -10,10 +11,6 @@ public class Book {
     private String author;
     private String category;
     private int year;
-
-    @ManyToOne
-    @JoinColumn(name = "borrow_ticket_detail_id")
-    private BorrowTicketDetail borrowTicketDetail;
 
     public Book() {
     }
@@ -66,12 +63,4 @@ public class Book {
         this.year = year;
     }
 
-    public BorrowTicketDetail getBorrowTicketDetail() {
-        return borrowTicketDetail;
-    }
-
-    public void setBorrowTicketDetail(BorrowTicketDetail borrowTicketDetail) {
-        this.borrowTicketDetail = borrowTicketDetail;
-
-    }
 }

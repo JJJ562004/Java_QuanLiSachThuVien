@@ -1,6 +1,7 @@
 package com.example.library.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,4 +40,9 @@ public class ReaderService {
             keyword, keyword, keyword
         );
     }
+
+    public Optional<Reader> findByNameAndEmail(String name, String email) {
+        return repository.findByNameAndEmail(name, email);
+    }
+
 }

@@ -22,7 +22,7 @@
 
     <p>
         <label>Ngày mượn:</label>
-        <input type="date" th:value="${#temporals.format(T(java.time.LocalDate).now(), 'yyyy-MM-dd')}" readonly />
+        <input type="date" th:field="*{borrowDate}" required/>
     </p>
 
     <p>

@@ -17,7 +17,7 @@
                 th:text="${reader.name}">
         </option>
     </select>
-    <p>ngày mượn: <input th:field="*{borrowDate}" type="datetime-local" required/></p>
+    <p>ngày mượn: <input th:field="*{borrowDate}" type="date" required/></p>
     <p>ngày trả: <input th:field="*{returnDate}" type="date" required/></p>
 
     <button type="submit">Lưu</button>

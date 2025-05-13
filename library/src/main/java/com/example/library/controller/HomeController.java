@@ -11,6 +11,6 @@ public class HomeController {
 
   @GetMapping("/index-admin")
   public String home_admin(){
-    return "index-amdin";
+    return "index-admin";
   }
 }

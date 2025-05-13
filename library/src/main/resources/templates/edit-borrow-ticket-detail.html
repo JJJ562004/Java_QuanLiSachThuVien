@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Chỉnh sửa Chi tiết Phiếu Mượn</title>
+    <title>Sửa CTPM</title>
 </head>
 <body>
-<h2>Chỉnh sửa Chi tiết Phiếu Mượn</h2>
+    <h2>Sửa chi tiết phiếu mượn</h2>
+    <form th:action="@{/borrow-ticket-details/edit/{id}(id=${detail.id})}" th:object="${detail}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        
+        <label for="borrowTicket">Phiếu mượn:</label>
+        <select th:field="*{borrowTicket.id}" id="borrowTicket" required>
+            <option value="" disabled selected>-- Chọn ID phiếu mượn --</option> 
+            <option th:each="ticket : ${borrowTickets}" 
+            th:value="${ticket.id}" 
+            th:text="${ticket.id}"></option>
+        </select><br/>
 
-<form th:action="@{/borrow-ticket-details/edit}" th:object="${detail}" method="post">
-    <!-- ID không cho chỉnh sửa -->
-     <input type="hidden" th:field="*{id}" />
-    <label>Chọn phiếu mượn:</label>
-    <select th:field="*{borrowTicket}">
-        <option th:each="t : ${tickets}" th:value="${t.id}" th:text="${t.id}"
-                th:selected="${detail.borrowTicket?.id} == ${t.id}"></option>
-    </select>
+        <label for="book">Sách mượn:</label>
+        <select th:field="*{book.id}" id="book" required>
+            <option value="" disabled selected>-- Chọn sách mượn --</option> 
+            <option th:each="book : ${books}" 
+            th:value="${book.id}" 
+            th:text="${book.title}"></option>
+        </select><br/>
 
-    <label>Chọn sách:</label>
-    <select name="bookIds" multiple>
-        <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}"
-                th:selected="${#lists.contains(detail.books, b)}"></option>
-    </select>
-
-    <button type="submit">Lưu</button>
-    <a th:href="@{/borrow-ticket-details}">Hủy</a>
-</form>
+        <button type="submit">Lưu</button>
+        <a th:href="@{/borrow-ticket-details}">Hủy</a>
+    </form>
 </body>
 </html>
