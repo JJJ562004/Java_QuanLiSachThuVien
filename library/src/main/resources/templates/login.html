@@ -6,10 +6,16 @@
 </head>
 <body>
 <h2>Đăng nhập</h2>
-<form th:action="@{/login}" method="post">
-    <label>Tên đăng nhập: <input type="text" name="username" required></label><br>
-    <label>Mật khẩu: <input type="password" name="password" required></label><br>
+
+<form action="/login" method="post">
+    <label for="name">Tên:</label>
+    <input type="text" name="name" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" name="email" required>
+    
     <button type="submit">Đăng nhập</button>
 </form>
+
 </body>
 </html>
