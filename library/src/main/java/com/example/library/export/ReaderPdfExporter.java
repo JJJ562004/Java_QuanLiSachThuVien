@@ -41,9 +41,9 @@ public class ReaderPdfExporter {
         document.add(title);
         document.add(new Paragraph(" "));
 
-        PdfPTable table = new PdfPTable(4);
+        PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[]{2.5f, 3.5f, 3.5f, 3.5f});
+        table.setWidths(new float[]{2.5f, 2.5f, 2.5f, 2.5f, 2.5f});
         table.setSpacingBefore(3);
 
         writeTableHeader(table);

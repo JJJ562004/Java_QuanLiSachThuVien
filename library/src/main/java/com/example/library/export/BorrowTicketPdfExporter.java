@@ -61,13 +61,13 @@ public class BorrowTicketPdfExporter {
         cell.setPhrase(new Phrase("ID", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Tên bạn đọc", font));
+        cell.setPhrase(new Phrase("Ten ban doc", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Ngày mượn", font));
+        cell.setPhrase(new Phrase("Ngay muon", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Ngày trả", font));
+        cell.setPhrase(new Phrase("Ngay tra", font));
         table.addCell(cell);
 
     }

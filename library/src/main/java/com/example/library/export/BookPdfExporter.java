@@ -78,7 +78,7 @@ public class BookPdfExporter {
 
     private void writeTableData(PdfPTable table) {
         for (Book book : bookList) {
-            table.addCell(book.getId().toString());
+            table.addCell(book.getId());
             table.addCell(book.getTitle());
             table.addCell(book.getAuthor());
             table.addCell(book.getCategory());
